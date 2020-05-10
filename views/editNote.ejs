@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('includes/head') %>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <%- include('includes/nav') %>
+      <div class="container">
+
+        <form id="note-form" action="/notes/<%=note.id %>?_method=PUT" method="POST">
+          <input type="hidden" name="_method" value="PUT">
+          <h3>Edit note</h3>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" value="<%=note.title %>" placeholder="Enter title" name="title" />
+          </div>
+          <div class="form-group">
+            <label for="body">Body</label>
+            <input type="text" class="form-control" id="body" placeholder="Enter note" value="<%=note.body%>" name="body" />
+          </div>
+          <button type="submit" class="add-note-btn">Save</button>
+        </form>
+      </div>
+    </div>
+    <%- include('includes/footer') %>
+  </body>
+
+</html>
