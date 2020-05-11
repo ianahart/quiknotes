@@ -22,22 +22,29 @@ exports.addNote = (req, res, next) => {
 exports.editNote = async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id);
-    res.render('editNote', {
-      note,
-      pageTitle: 'Edit Note'
-    })
+    if (note.user != req.user.id) {
+      req.flash('error_message', 'Not Authorized');
+      res.redirect('/notes');
+    } else {
+      res.render('editNote', {
+        note,
+        pageTitle: 'Edit Note',
+      });
+    }
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.notes = async (req, res, next) => {
   try {
-  const notes = await Note.find({}).lean().sort({ date: 'desc' });
+    const notes = await Note.find({ user: req.user.id })
+      .lean()
+      .sort({ date: 'desc' });
     res.render('notes', {
       notes,
-      pageTitle: 'Notes'
-  })
+      pageTitle: 'Notes',
+    });
   } catch (err) {
     console.log(err);
   }
@@ -45,15 +52,14 @@ exports.notes = async (req, res, next) => {
 
 exports.deleteNote = async (req, res, next) => {
   try {
-  const note = await Note.findById(req.params.id);
+    const note = await Note.findById(req.params.id);
     await note.remove();
     req.flash('success_message', 'Note was removed');
     res.redirect('/notes');
   } catch (err) {
     console.log(err);
   }
-
-}
+};
 
 exports.editNoteForm = async (req, res, next) => {
   try {
@@ -66,37 +72,37 @@ exports.editNoteForm = async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.addNoteForm = async (req, res, next) => {
   try {
-  let errors = [];
-  if (!req.body.title) {
-    errors.push({ text: 'Please add a title.' });
-  }
-  if (!req.body.body) {
-    errors.push({ text: 'Please add a note body' });
-  }
+    let errors = [];
+    if (!req.body.title) {
+      errors.push({ text: 'Please add a title.' });
+    }
+    if (!req.body.body) {
+      errors.push({ text: 'Please add a note body' });
+    }
 
-  if (errors.length > 0) {
-    res.render('addNote', {
-      pageTitle: 'Add Note',
-      errors,
-      title: req.body.title,
-      body: req.body.body,
-    });
-  } else {
-    const newUser = {
-      title: req.body.title,
-      body: req.body.body,
-    };
-    const note = await new Note(newUser);
-    await note.save();
-    req.flash('success_message', 'Note successfully added');
-    res.redirect('/notes');
-  }
+    if (errors.length > 0) {
+      res.render('addNote', {
+        pageTitle: 'Add Note',
+        errors,
+        title: req.body.title,
+        body: req.body.body,
+      });
+    } else {
+      const newUser = {
+        title: req.body.title,
+        body: req.body.body,
+        user: req.user.id,
+      };
+      const note = await new Note(newUser);
+      await note.save();
+      req.flash('success_message', 'Note successfully added');
+      res.redirect('/notes');
+    }
   } catch (err) {
     console.log(err);
   }
-
 };
