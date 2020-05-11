@@ -5,3 +5,15 @@
 <% } else {%>
 
 <%} %>
+
+<% if (error_message) { %>
+
+<p class="text-center error-message"><%= error_message %></p>
+
+<% } else {%>
+
+<%} %>
+
+<% if (error) { %>
+  <p class="login-error"><%= error %></p>
+<%}%>

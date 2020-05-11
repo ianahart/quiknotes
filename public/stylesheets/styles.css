@@ -7,6 +7,7 @@
 :root {
   --primary-color: rgba(13, 110, 139, 0.5);
   --overlay-color: rgba(24, 39, 51, 0.9);
+  --fail-color: tomato;
   --success-color: #9dff9d;
   --light-grey: #f4f4f4;
   --main-white: #fff;
@@ -160,4 +161,24 @@ body {
   width: 50%;
   margin: 0 auto;
   margin-top: 3rem;
+}
+.error-message {
+  background-color: var(--fail-color);
+  color: var(--main-white);
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+/* Login Page */
+.create-account-link {
+  color: var(--primary-color);
+}
+
+.login-error {
+  background: var(--fail-color);
+  color: var(--main-white);
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
 }
