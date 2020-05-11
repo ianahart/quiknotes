@@ -8,6 +8,9 @@
     <div class="container-fluid">
       <%- include('includes/nav') %>
       <h3 class="notes-heading">Your Notes...</h3>
+
+      <%- include('includes/messages') %>
+
       <% if (notes) { %>
        <% notes.forEach(function(note) {%>
 <ul id="notes-list" class="list-group">

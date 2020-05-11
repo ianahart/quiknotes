@@ -7,6 +7,7 @@
 :root {
   --primary-color: rgba(13, 110, 139, 0.5);
   --overlay-color: rgba(24, 39, 51, 0.9);
+  --success-color: #9dff9d;
   --light-grey: #f4f4f4;
   --main-white: #fff;
 }
@@ -152,3 +153,11 @@ body {
   color: var(--main-white);
 }
 
+/* User Action Messages */
+.success-message {
+  background-color: var(--success-color);
+  color: #333;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 3rem;
+}

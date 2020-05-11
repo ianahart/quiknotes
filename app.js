@@ -1,8 +1,10 @@
 const path = require('path');
 
-const express = require('express');
-const helmet = require('helmet');
 const chalk = require('chalk');
+const helmet = require('helmet');
+const express = require('express');
+const flash = require('connect-flash');
+const session = require('express-session');
 const methodOverride = require('method-override');
 
 const connectDB = require('./config/db/mongoose');
@@ -15,6 +17,22 @@ connectDB();
 const app = express();
 
 app.use(helmet());
+
+app.use(session({
+  secret: process.env.SESSION,
+  resave: true,
+  saveUninitialized: true,
+}));
+
+app.use(flash());
+
+// Global variables for flash
+app.use((req, res, next) => {
+  res.locals.success_message = req.flash('success_message');
+  res.locals.error_message = req.flash('error_message');
+  res.locals.error = req.flash('error');
+  next()
+});
 
 app.use(express.static(__dirname + '/public'));
 

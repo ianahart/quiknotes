@@ -47,6 +47,7 @@ exports.deleteNote = async (req, res, next) => {
   try {
   const note = await Note.findById(req.params.id);
     await note.remove();
+    req.flash('success_message', 'Note was removed');
     res.redirect('/notes');
   } catch (err) {
     console.log(err);
@@ -60,6 +61,7 @@ exports.editNoteForm = async (req, res, next) => {
     note.title = req.body.title;
     note.body = req.body.body;
     await note.save();
+    req.flash('success_message', 'Note successfully updated');
     res.redirect('/notes');
   } catch (err) {
     console.log(err);
@@ -90,6 +92,7 @@ exports.addNoteForm = async (req, res, next) => {
     };
     const note = await new Note(newUser);
     await note.save();
+    req.flash('success_message', 'Note successfully added');
     res.redirect('/notes');
   }
   } catch (err) {
