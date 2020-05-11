@@ -116,7 +116,6 @@ body {
   width: 50%;
   margin: 0 auto;
   margin-top: 3rem;
-
 }
 
 #notes-list .list-group-item {
@@ -143,13 +142,12 @@ body {
   margin-top: 1rem;
 }
 
-
 .notes-heading {
   width: 50%;
   text-align: center;
   margin: 0 auto;
   margin-top: 3rem;
-   background-color: var(--primary-color);
+  background-color: var(--primary-color);
   padding: 0.5rem;
   color: var(--main-white);
 }
@@ -181,4 +179,14 @@ body {
   width: 30%;
   margin: 0 auto;
   text-align: center;
+}
+
+/* About page */
+.about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 70vh;
 }
